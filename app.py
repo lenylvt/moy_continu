@@ -29,10 +29,25 @@ def moyenne_a_maitrise(moyenne):
 def arrondir_maitrise(moyenne):
     niveaux_inverses = niveaux_maitrise_inverses()
     niveaux = sorted(niveaux_inverses.keys())
+
+    if not niveaux:  # Vérifie si la liste des niveaux est vide
+        return None
+
+    # Si la moyenne est inférieure au premier seuil, retourner le niveau associé à ce seuil.
+    if moyenne < niveaux[0]:
+        return niveaux_inverses[niveaux[0]]
+
     for i in range(len(niveaux) - 1):
-        if moyenne > niveaux[i] and moyenne <= niveaux[i + 1]:  # Utilise ">" et "<=" pour arrondir au supérieur
-            return niveaux_inverses[niveaux[i + 1]]
-    return niveaux_inverses[niveaux[-1]]
+        if moyenne >= niveaux[i] and moyenne < niveaux[i + 1]:
+            # Calculez la différence avec le seuil inférieur et supérieur
+            diff_inferieur = moyenne - niveaux[i]
+            diff_superieur = niveaux[i + 1] - moyenne
+            
+            # Choisissez le seuil le plus proche
+            if diff_inferieur <= diff_superieur:
+                return niveaux_inverses[niveaux[i]]
+            else:
+                return niveaux_inverses[niveaux[i + 1]]
 
 # Gestion de session pour maintenir l'état
 if 'client' not in st.session_state:
