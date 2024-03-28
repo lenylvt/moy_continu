@@ -25,7 +25,6 @@ def moyenne_a_maitrise(moyenne):
             return niveaux_inverses[niveaux[i + 1]]
     return niveaux_inverses[niveaux[-1]]
 
-# Fonction pour arrondir au niveau de maîtrise supérieur
 def arrondir_maitrise(moyenne):
     niveaux_inverses = niveaux_maitrise_inverses()
     niveaux = sorted(niveaux_inverses.keys())
